@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 import json
-from dash import dcc
-import dash_html_components as html
+from dash import dcc, html
 import dash_bootstrap_components as dbc
 import logging
 import boto3
@@ -71,5 +70,5 @@ app.layout = html.Div([
 LOG.info("Dashboard created")
 
 if __name__ == '__main__':
-    app.run_server(debug=True,port=8080)
+    app.run_server(debug=True)
     
