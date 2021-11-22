@@ -9,11 +9,8 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import logging
 import boto3
-
 from plot import plot_popularname, popular_names, plot_sentiment, wordcloud_generator
 from dotenv import load_dotenv
-# from flask import Flask
-# from flask import render_template,request,url_for,redirect
 from dash import Dash
 import plotly.express as px
 
@@ -27,18 +24,18 @@ LOG.addHandler(logHandler)
 ACCESS_ID = "AKIA4RPDRDJ73X7BRDQW"
 ACCESS_KEY ="3xAM792E8iTUx24tc6J4EBWo64IZ8Zav7uIQZssl"
 
-s3 = boto3.resource('s3',
+s3 = boto3.client('s3',
          aws_access_key_id=ACCESS_ID,
          aws_secret_access_key= ACCESS_KEY)
+LOG.info("s3 created")
 # 's3' is a key word. create connection to S3 using default config and all buckets within S3
 bucket = "we-rate-dogs-data"
 file = "processed-data/master.csv"
-s3 = boto3.client('s3') 
 obj = s3.get_object(Bucket= bucket, Key= file) 
 # get object and file (key) from bucket
 
 twitter_archive = pd.read_csv(obj['Body'])
-
+LOG.info(twitter_archive.head())
 
 app = Dash(__name__)
 
