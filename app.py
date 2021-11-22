@@ -24,11 +24,16 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 logHandler.setFormatter(formatter)
 LOG.addHandler(logHandler)
 
+ACCESS_ID = "AKIA4RPDRDJ73X7BRDQW"
+ACCESS_KEY ="3xAM792E8iTUx24tc6J4EBWo64IZ8Zav7uIQZssl"
+
+s3 = boto3.resource('s3',
+         aws_access_key_id=ACCESS_ID,
+         aws_secret_access_key= ACCESS_KEY)
+# 's3' is a key word. create connection to S3 using default config and all buckets within S3
 bucket = "we-rate-dogs-data"
 file = "processed-data/master.csv"
 s3 = boto3.client('s3') 
-# 's3' is a key word. create connection to S3 using default config and all buckets within S3
-
 obj = s3.get_object(Bucket= bucket, Key= file) 
 # get object and file (key) from bucket
 
