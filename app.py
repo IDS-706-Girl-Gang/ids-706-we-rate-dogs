@@ -17,11 +17,10 @@ from dash import Dash
 import plotly.express as px
 
 
-load_dotenv()
 
 # read in data 
-bucket = os.getenv('AWS_S3_BUCKET')
-file = f"s3://{bucket}/processed-data/master.csv"
+# bucket = os.getenv('AWS_S3_BUCKET')
+file = f"s3://we-rate-dogs-data/processed-data/master.csv"
 twitter_archive = pd.read_csv(file)
 
 
