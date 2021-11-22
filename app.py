@@ -7,7 +7,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-
+import logging
+import boto3
 
 from plot import plot_popularname, popular_names, plot_sentiment, wordcloud_generator
 from dotenv import load_dotenv
@@ -16,12 +17,22 @@ from dotenv import load_dotenv
 from dash import Dash
 import plotly.express as px
 
+LOG = logging.getLogger()
+LOG.setLevel(logging.INFO)
+logHandler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logHandler.setFormatter(formatter)
+LOG.addHandler(logHandler)
 
+bucket = "we-rate-dogs-data"
+file = "processed-data/master.csv"
+s3 = boto3.client('s3') 
+# 's3' is a key word. create connection to S3 using default config and all buckets within S3
 
-# read in data 
-# bucket = os.getenv('AWS_S3_BUCKET')
-file = f"s3://we-rate-dogs-data/processed-data/master.csv"
-twitter_archive = pd.read_csv(file)
+obj = s3.get_object(Bucket= bucket, Key= file) 
+# get object and file (key) from bucket
+
+twitter_archive = pd.read_csv(obj['Body'])
 
 
 app = Dash(__name__)
