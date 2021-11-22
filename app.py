@@ -38,6 +38,9 @@ LOG.info(twitter_archive.head())
 app = Dash(__name__)
 LOG.info(app)
 
+server = app.server
+
+
 app.layout = html.Div([
     html.Center([
         dbc.Row([
