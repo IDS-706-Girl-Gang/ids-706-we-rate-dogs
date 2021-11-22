@@ -38,7 +38,7 @@ twitter_archive = pd.read_csv(obj['Body'])
 LOG.info(twitter_archive.head())
 
 app = Dash(__name__)
-
+LOG.info(app)
 
 app.layout = html.Div([
     html.Center([
@@ -69,7 +69,8 @@ app.layout = html.Div([
     ])
 ])
 
+LOG.info("Dashboard created")
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True,port=8080)
     
